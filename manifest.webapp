@@ -1,0 +1,15 @@
+{
+  "name": "Let's Do DAMATH",
+  "description": "DAMATH game",
+  "launch_path": "/app.html",
+  "icons": {
+    "128": "/imgs/app_icon_128.png",
+    "60": "/imgs/app_icon_60.png"
+  },
+  "version": "1.1",
+  "developer": {
+    "name": "COSSine",
+    "url": "http://uplbcoss.ph"
+  },
+  "default_locale": "en"
+}
