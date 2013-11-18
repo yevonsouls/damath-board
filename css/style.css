@@ -68,10 +68,10 @@ h3{
   position: absolute;
   bottom: 0;
   left: 0;
-  background-image:url('images/pause.png');
-  height: 20px;
-  width: 20px;
-  border:0;
+  background-image: url('../imgs/pause.png');
+  height: 38px;
+  width: 38px;
+  border: 0;
 }
 #index h1{
   font-size: 70px;

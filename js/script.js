@@ -1,4 +1,39 @@
 (function(root){
+	$$ = function(e){
+		if(typeof e === 'string'){
+			e = document.getElementById(e.substring(1));
+		}
+		e.addClass = function(c){
+			((this.className && (this.className += " "+c)) || (this.className = c));
+			return this;
+		};
+		e.removeClass = function(c){
+			this.className = this.className.replace(c,"");
+			return this;
+		};
+		e.hasClass = function(c){
+			return this.className.indexOf(c) != -1;
+		};
+		e.css = function(a,v){
+			this.style[a] = v;
+			return this;
+		};
+		e.html = function(html){
+			if(html){
+				this.innerHTML = html;
+				return this;
+			}
+			else{
+				return this.innerHTML;
+			}
+		};
+		e.hasClass = function(c){
+			return (" " + this.className + " ").replace(/[\n\t]/g, " ").indexOf(" " + c + " ") > -1;
+		};
+		return e;
+	};
+	
+	
 	var name1,
 		name2,
 		turn = true,
@@ -23,41 +58,39 @@
 	};
 	
 	var computeScore = function(operator, prey){
-		console.log(operator.className);
-		console.log(prey.innerHTML);
-		if($(operator).hasClass('plus')){
+		if($$(operator).hasClass('plus')){
 			return parseInt(parseInt(val) + parseInt(prey.innerHTML));
 		}
-		if($(operator).hasClass('minus')){
+		if($$(operator).hasClass('minus')){
 			return parseInt(parseInt(val) - parseInt(prey.innerHTML));
 		}
-		if($(operator).hasClass('divide')){
+		if($$(operator).hasClass('divide')){
 			if(parseInt(prey.innerHTML) == 0) return 0;
 			return parseInt(parseInt(val) / parseInt(prey.innerHTML));
 		}
-		if($(operator).hasClass('times')){
+		if($$(operator).hasClass('times')){
 			return parseInt(parseInt(val) * parseInt(prey.innerHTML));
 		}
 	};
 	
 	var revertValue = function(ha){
 		cache = ha || cache;
-		if($(cache).hasClass('plus')){
-			$(cache).html('+');
+		if($$(cache).hasClass('plus')){
+			$$(cache).html('+');
 		}
-		else if($(cache).hasClass('minus')){
-			$(cache).html('&minus;');
+		else if($$(cache).hasClass('minus')){
+			$$(cache).html('&minus;');
 		}
-		else if($(cache).hasClass('divide')){
-			$(cache).html('&divide;');
+		else if($$(cache).hasClass('divide')){
+			$$(cache).html('&divide;');
 		}
-		else if($(cache).hasClass('times')){
-			$(cache).html('&times;');
+		else if($$(cache).hasClass('times')){
+			$$(cache).html('&times;');
 		}
 		else{
-			$(cache).html('');
+			$$(cache).html('');
 		}
-		$(cache).css('background', "#19AAD9").removeClass('green-chip').removeClass('yellow-chip');
+		$$(cache).css('background', "#19AAD9").removeClass('green-chip').removeClass('yellow-chip');
 	};
 	
 	var newBoard = function(){
@@ -65,7 +98,7 @@
 			n2 = document.getElementById('player2-name');
 		n1.innerHTML = (name1 || "Player1")+" | ---";
 		n2.innerHTML = (name2 || "Player2")+" | ---";	
-		$('html,body').css('background','#92FA37');
+		$$(document.body).css('background','#92FA37');
 		var h = window.innerHeight,
 			w = window.innerWidth;
 		if(w < h){
@@ -153,40 +186,40 @@
 					else if(turn && !( (" " + box.className + " ").replace(/[\n\t]/g, " ").indexOf(" yellow-chip ") > -1)){
 						if(parseInt(xx)+1 == parseInt(x) && ((parseInt(yy)-1 == parseInt(y))  || (parseInt(yy)+1 == parseInt(y)))){
 							box.innerHTML = val;
-							$(box).addClass('green-chip');
-							$(cache).removeClass('green-chip');
-							$(cache).removeClass('green-chip');
+							$$(box).addClass('green-chip');
+							$$(cache).removeClass('green-chip');
+							$$(cache).removeClass('green-chip');
 							revertValue();
 							turn = false;
 							clicked = false;
-							$('html,body').css('background','#FCCA0A');
+							$$(document.body).css('background','#FCCA0A');
 						}
 						else if(parseInt(xx)+2 == parseInt(x) && (parseInt(yy)-2 == parseInt(y))){
 							var hanz = getTDByCoordinate(parseInt(xx)+1, parseInt(y)+1);
-							if($(hanz).hasClass('yellow-chip')){
+							if($$(hanz).hasClass('yellow-chip')){
 								score1 += computeScore(box, hanz);
-								$(hanz).removeClass('yellow-chip');
-								$(box).html($(cache).html()).addClass('green-chip');
+								$$(hanz).removeClass('yellow-chip');
+								$$(box).html($$(cache).html()).addClass('green-chip');
 								revertValue();
 								revertValue(hanz);
 								turn = false;
 								clicked = false;
-								$('html,body').css('background','#FCCA0A');
-								$('#player1-name').html(name1 + " | " + score1);
+								$$(document.body).css('background','#FCCA0A');
+								$$('#player1-name').html(name1 + " | " + score1);
 							}
 						}
 						else if(parseInt(xx)+2 == parseInt(x) && (parseInt(yy)+2 == parseInt(y))){
 							var hanz = getTDByCoordinate(parseInt(xx)+1, parseInt(y)-1);
-							if($(hanz).hasClass('yellow-chip')){
+							if($$(hanz).hasClass('yellow-chip')){
 								score1 += computeScore(box, hanz);
-								$(hanz).removeClass('yellow-chip');
-								$(box).html($(cache).html()).addClass('green-chip');
+								$$(hanz).removeClass('yellow-chip');
+								$$(box).html($$(cache).html()).addClass('green-chip');
 								revertValue();
 								revertValue(hanz);
 								turn = false;
 								clicked = false;
-								$('html,body').css('background','#FCCA0A');
-								$('#player1-name').html(name1 + " | " + score1);
+								$$(document.body).css('background','#FCCA0A');
+								$$('#player1-name').html(name1 + " | " + score1);
 							}
 						}
 					}
@@ -206,40 +239,40 @@
 								yy = box.id.split('-')[1];
 							if(parseInt(xx)-1 == parseInt(x) && ((parseInt(yy)-1 == parseInt(y))  || (parseInt(yy)+1 == parseInt(y)))){
 								box.innerHTML = val;
-								$(box).addClass('yellow-chip');
-								$(cache).removeClass('yellow-chip');
-								$(cache).removeClass('yellow-chip');
+								$$(box).addClass('yellow-chip');
+								$$(cache).removeClass('yellow-chip');
+								$$(cache).removeClass('yellow-chip');
 								revertValue();
 								turn = true;
 								clicked = false;
-								$('html,body').css('background','#92FA37');
+								$$(document.body).css('background','#92FA37');
 							}
 							else if(parseInt(xx)-2 == parseInt(x) && (parseInt(yy)-2 == parseInt(y))){
 								var hanz = getTDByCoordinate(parseInt(xx)-1, parseInt(y)+1);
-								if($(hanz).hasClass('green-chip')){
+								if($$(hanz).hasClass('green-chip')){
 									score2 += computeScore(box, hanz);
-									$(hanz).removeClass('green-chip');
-									$(box).html($(cache).html()).addClass('yellow-chip');
+									$$(hanz).removeClass('green-chip');
+									$$(box).html($$(cache).html()).addClass('yellow-chip');
 									revertValue();
 									revertValue(hanz);
 									turn = true;
 									clicked = false;
-									$('html,body').css('background','#92FA37');
-									$('#player2-name').html(name2 + " | " + score2);
+									$$(document.body).css('background','#92FA37');
+									$$('#player2-name').html(name2 + " | " + score2);
 								}
 							}
 							else if(parseInt(xx)-2 == parseInt(x) && (parseInt(yy)+2 == parseInt(y))){
 								var hanz = getTDByCoordinate(parseInt(xx)-1, parseInt(y)-1);
-								if($(hanz).hasClass('green-chip')){
+								if($$(hanz).hasClass('green-chip')){
 									score2 += computeScore(box, hanz);
-									$(hanz).removeClass('green-chip');
-									$(box).html($(cache).html()).addClass('yellow-chip');
+									$$(hanz).removeClass('green-chip');
+									$$(box).html($$(cache).html()).addClass('yellow-chip');
 									revertValue();
 									revertValue(hanz);
 									turn = true;
 									clicked = false;
-									$('html,body').css('background','#92FA37');
-									$('#player2-name').html(name2 + " | " + score2);
+									$$(document.body).css('background','#92FA37');
+									$$('#player2-name').html(name2 + " | " + score2);
 								}
 							}
 						}
@@ -302,13 +335,13 @@
 			twoplayers = true;
 			newBoard();
 		});
-		/* document.getElementById('btn-pause').addEventListener ('click', function () {
-			$('html,body').css('background','#104D61');
+		document.getElementById('btn-pause').addEventListener ('click', function () {
+			$$(document.body).css('background','#104D61');
 			document.getElementById('board-game').className = 'left';
 			document.getElementById('pause-menu').className = 'current';
-		}); */
+		});
 		document.getElementById('btn-backtomenu').addEventListener ('click', function () {
-			$('html,body').css('background','#19AAD9');
+			$$(document.body).css('background','#19AAD9');
 			document.getElementById('pause-menu').className = 'left';
 			document.querySelector('[data-position="current"]').className = 'current';
 		});
