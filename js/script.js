@@ -98,7 +98,7 @@
 			n2 = document.getElementById('player2-name');
 		n1.innerHTML = (name1 || "Player1")+" | ---";
 		n2.innerHTML = (name2 || "Player2")+" | ---";	
-		$$(document.body).css('background','#92FA37');
+		$$(document.body).css('background','#2AAF4B');
 		var h = window.innerHeight,
 			w = window.innerWidth;
 		if(w < h){
@@ -245,7 +245,7 @@
 								revertValue();
 								turn = true;
 								clicked = false;
-								$$(document.body).css('background','#92FA37');
+								$$(document.body).css('background','#2AAF4B');
 							}
 							else if(parseInt(xx)-2 == parseInt(x) && (parseInt(yy)-2 == parseInt(y))){
 								var hanz = getTDByCoordinate(parseInt(xx)-1, parseInt(y)+1);
@@ -257,7 +257,7 @@
 									revertValue(hanz);
 									turn = true;
 									clicked = false;
-									$$(document.body).css('background','#92FA37');
+									$$(document.body).css('background','#2AAF4B');
 									$$('#player2-name').html(name2 + " | " + score2);
 								}
 							}
@@ -271,7 +271,7 @@
 									revertValue(hanz);
 									turn = true;
 									clicked = false;
-									$$(document.body).css('background','#92FA37');
+									$$(document.body).css('background','#2AAF4B');
 									$$('#player2-name').html(name2 + " | " + score2);
 								}
 							}
