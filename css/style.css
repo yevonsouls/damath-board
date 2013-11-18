@@ -143,6 +143,9 @@ h3{
   color: #92FA37;
   font-weight: bold;
 }
+#pause-menu h3{
+  font-size: 30px;
+}
 
 
 /* ANIMATIONS */
