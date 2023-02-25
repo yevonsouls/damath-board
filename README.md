@@ -1,4 +1,7 @@
-damath
+
+
+
+Damath Game For from below devs
 ======
 
 An Open Web App for the game DAMATH. Won 1st place on the Philippines' Firefox OS Challenge for Students.
