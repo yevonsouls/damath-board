@@ -164,9 +164,11 @@
 		
 		
 		var boxes = document.querySelectorAll('#board td');
+		console.log(boxes)
 		for(var a in boxes){
 			if(boxes.hasOwnProperty(a)){
 				boxes[a].onclick = function(e){
+					console.log(boxes[a])
 					var box = e.originalTarget,
 						xx = box.id.split('-')[0],
 						yy = box.id.split('-')[1];
